@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>João Pessoa — OtherEarth Brazil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>const _t=localStorage.getItem('oe-theme');if(_t)document.documentElement.setAttribute('data-theme',_t);</script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+    :root {
+      --bg:#0C0C0C; --surface:#141414; --border:rgba(255,255,255,0.08);
+      --text:#EEEEF0; --muted:rgba(238,238,240,0.44); --heading:#fff;
+      --footer:rgba(255,255,255,0.14);
+      --toggle-bg:rgba(255,255,255,0.07); --toggle-border:rgba(255,255,255,0.12); --toggle-text:rgba(255,255,255,0.5);
+      --accent:#1A6FAA; --accent-dim:rgba(26,111,170,0.15);
+    }
+    [data-theme="light"] {
+      --bg:#EDE9E1; --surface:#fff; --border:rgba(0,0,0,0.09);
+      --text:#1A1A1A; --muted:rgba(26,26,26,0.5); --heading:#0A0A0A;
+      --footer:rgba(0,0,0,0.22);
+      --toggle-bg:rgba(0,0,0,0.06); --toggle-border:rgba(0,0,0,0.1); --toggle-text:rgba(0,0,0,0.5);
+      --accent:#0D5A9A; --accent-dim:rgba(13,90,154,0.1);
+    }
+
+    body { background:var(--bg); color:var(--text); font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased; min-height:100vh; transition:background .4s,color .4s; }
+
+    /* ── Hero ── */
+    .hero { position:relative; width:100%; height:clamp(280px,60vw,500px); overflow:hidden; }
+    .hero-img { width:100%; height:100%; object-fit:cover; display:block; }
+    .hero-grad { position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.8) 0%, rgba(0,0,0,.1) 55%, transparent 100%); }
+
+    .nav-btn {
+      position:fixed; top:18px;
+      display:flex; align-items:center; gap:6px;
+      padding:7px 14px; border-radius:100px;
+      background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.18);
+      backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+      color:rgba(255,255,255,.8); font-family:inherit;
+      font-size:11px; font-weight:600; letter-spacing:.04em;
+      cursor:pointer; text-decoration:none; transition:color .2s; z-index:100;
+    }
+    .nav-btn:hover { color:#fff; }
+    .nav-btn.left  { left:18px; }
+    .nav-btn.right { right:18px; }
+    .nav-btn svg { width:13px; height:13px; flex-shrink:0; stroke:currentColor; }
+
+    .hero-content { position:absolute; bottom:22px; left:20px; right:20px; }
+    .hero-tags { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px; }
+    .hero-tag {
+      font-size:9.5px; font-weight:700; letter-spacing:.15em; text-transform:uppercase;
+      background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2);
+      color:#fff; border-radius:100px; padding:4px 11px; backdrop-filter:blur(4px);
+    }
+    .hero-name { font-size:clamp(26px,6vw,44px); font-weight:800; color:#fff; letter-spacing:-.025em; line-height:1.05; }
+    .hero-state { font-size:13px; color:rgba(255,255,255,.65); margin-top:4px; }
+
+    /* ── Stats band ── */
+    .stats { display:grid; grid-template-columns:1fr 1fr 1fr; background:var(--surface); border-bottom:1px solid var(--border); transition:background .4s; }
+    .stat { padding:18px 10px; text-align:center; border-right:1px solid var(--border); transition:border-color .4s; }
+    .stat:last-child { border-right:none; }
+    .stat-val { font-size:clamp(14px,2.8vw,20px); font-weight:800; color:var(--accent); letter-spacing:-.02em; line-height:1.1; transition:color .4s; }
+    .stat-lbl { font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-top:4px; transition:color .4s; }
+
+    /* ── Content ── */
+    .content { max-width:600px; margin:0 auto; padding:28px 20px 56px; }
+
+    .sec-title { font-size:10px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; transition:color .4s; }
+
+    .bullets { list-style:none; display:flex; flex-direction:column; gap:11px; margin-bottom:32px; }
+    .bullet { display:flex; align-items:flex-start; gap:12px; font-size:14px; line-height:1.6; color:var(--text); transition:color .4s; }
+    .bdot { width:6px; height:6px; border-radius:50%; background:var(--accent); flex-shrink:0; margin-top:8px; transition:background .4s; }
+
+    .gallery { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:32px; }
+    .gallery img { width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:12px; display:block; }
+    .gallery img.wide { grid-column:span 2; aspect-ratio:16/9; }
+
+    .criteria { margin-bottom:28px; }
+    .crit-row { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); font-size:13px; transition:border-color .4s; }
+    .crit-row:first-child { border-top:1px solid var(--border); }
+    .crit-check { color:var(--accent); font-weight:700; flex-shrink:0; width:18px; transition:color .4s; }
+    .crit-key { font-weight:600; width:90px; flex-shrink:0; color:var(--text); transition:color .4s; }
+    .crit-val { color:var(--muted); line-height:1.4; transition:color .4s; }
+
+    .risks { background:var(--surface); border:1px solid var(--border); border-left:3px solid #C4783A; border-radius:0 14px 14px 0; padding:16px 20px; margin-bottom:32px; transition:background .4s,border-color .4s; }
+    .risk-lbl { font-size:9.5px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:#C4783A; margin-bottom:8px; }
+    .risk-text { font-size:13px; line-height:1.6; color:var(--muted); transition:color .4s; }
+
+    .footer { text-align:center; font-size:10px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--footer); padding-bottom:16px; transition:color .4s; }
+  </style>
+</head>
+<body>
+
+  <a class="nav-btn left" href="#" onclick="history.length>1?history.back():location.href='main.html';return false;">← Back</a>
+
+  <button class="nav-btn right" id="themeBtn" onclick="toggleTheme()">
+    <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+    <span id="themeLabel">Light</span>
+  </button>
+
+  <div class="hero">
+    <img class="hero-img" src="/Users/giovanni.koubo/.claude/image-cache/c4e8b5d8-08a4-4627-b782-dc4382f67f33/3.png" alt="João Pessoa">
+    <div class="hero-grad"></div>
+    <div class="hero-content">
+      <div class="hero-tags">
+        <span class="hero-tag">Beach &amp; Lifestyle</span>
+        <span class="hero-tag">Entrepreneurship</span>
+      </div>
+      <h1 class="hero-name">João Pessoa</h1>
+      <p class="hero-state">Paraíba, Brazil · JPA Airport · 20–30 min</p>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-val">R$9–15k</div>
+      <div class="stat-lbl">per m²</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">18.25%</div>
+      <div class="stat-lbl">appreciation / yr</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">13.2%</div>
+      <div class="stat-lbl">rental yield</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <p class="sec-title">Why Invest</p>
+    <ul class="bullets">
+      <li class="bullet"><span class="bdot"></span><span><strong>#1 trending destination globally</strong> — Booking.com 2025. 3rd fastest-growing in worldwide travel searches.</span></li>
+      <li class="bullet"><span class="bdot"></span><span>Westin Marriott Resort under construction — international luxury market validation.</span></li>
+      <li class="bullet"><span class="bdot"></span><span>13.2% gross STR yield — above Brazilian CDI in 2026. Median occupancy 58%.</span></li>
+      <li class="bullet"><span class="bdot"></span><span>2nd highest appreciation rate in Brazil (18.25%/yr). Entry price still far below Floripa and Rio.</span></li>
+      <li class="bullet"><span class="bdot"></span><span>Fiber internet up to 1 Gbps. 4th safest capital in the Northeast, improving trend.</span></li>
+      <li class="bullet"><span class="bdot"></span><span>Fits both contexts: beachfront lifestyle + emerging entrepreneurship ecosystem with low cost of living.</span></li>
+    </ul>
+
+    <p class="sec-title">Gallery</p>
+    <div class="gallery">
+      <img src="/Users/giovanni.koubo/.claude/image-cache/c4e8b5d8-08a4-4627-b782-dc4382f67f33/2.png" alt="Aerial view Hotel Tambaú">
+      <img src="/Users/giovanni.koubo/.claude/image-cache/c4e8b5d8-08a4-4627-b782-dc4382f67f33/7.png" alt="Beachfront avenue">
+      <img src="/Users/giovanni.koubo/.claude/image-cache/c4e8b5d8-08a4-4627-b782-dc4382f67f33/5.png" alt="Full arc of the coastline">
+      <img src="/Users/giovanni.koubo/.claude/image-cache/c4e8b5d8-08a4-4627-b782-dc4382f67f33/8.png" alt="Nighttime orla">
+    </div>
+
+    <p class="sec-title">Criteria Met</p>
+    <div class="criteria">
+      <div class="crit-row"><span class="crit-check">✓</span><span class="crit-key">Airport</span><span class="crit-val">JPA · 20–30 min drive</span></div>
+      <div class="crit-row"><span class="crit-check">✓</span><span class="crit-key">City</span><span class="crit-val">João Pessoa is the international city (1M+ residents)</span></div>
+      <div class="crit-row"><span class="crit-check">✓</span><span class="crit-key">Safety</span><span class="crit-val">22.28/100k homicides — 4th safest in Northeast, declining</span></div>
+      <div class="crit-row"><span class="crit-check">✓</span><span class="crit-key">Climate</span><span class="crit-val">Tropical, warm year-round, ~27°C avg</span></div>
+      <div class="crit-row"><span class="crit-check">✓</span><span class="crit-key">Beach</span><span class="crit-val">Tambaú &amp; Cabo Branco beachfront neighborhoods</span></div>
+    </div>
+
+    <div class="risks">
+      <p class="risk-lbl">Risks to Consider</p>
+      <p class="risk-text">Neighborhood selection is critical — pricing and quality vary significantly within the city. Some condominiums prohibit short-term rental platforms (Airbnb), which impacts yield calculations. Currency risk: all values in BRL.</p>
+    </div>
+
+    <p class="footer">OtherEarth Brazil · Investment Research 2025</p>
+  </div>
+
+  <script>
+    const SUN=`<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
+    const MOON=`<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`;
+    function applyTheme(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('themeIcon').innerHTML=t==='light'?MOON:SUN;document.getElementById('themeLabel').textContent=t==='light'?'Dark':'Light';}
+    function toggleTheme(){const n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';localStorage.setItem('oe-theme',n);applyTheme(n);}
+    const saved=localStorage.getItem('oe-theme');if(saved)applyTheme(saved);else applyTheme('dark');
+  </script>
+</body>
+</html>

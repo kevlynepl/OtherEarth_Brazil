@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Belo Horizonte — OtherEarth Brazil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>const _t=localStorage.getItem('oe-theme');if(_t)document.documentElement.setAttribute('data-theme',_t);</script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root {
+      --bg:#0C0C0C; --surface:#141414; --border:rgba(255,255,255,0.08);
+      --text:#EEEEF0; --muted:rgba(238,238,240,0.44); --heading:#fff;
+      --footer:rgba(255,255,255,0.14);
+      --toggle-bg:rgba(255,255,255,0.07); --toggle-border:rgba(255,255,255,0.12); --toggle-text:rgba(255,255,255,0.5);
+      --accent:#8C2B1D;
+    }
+    [data-theme="light"] {
+      --bg:#EDE9E1; --surface:#fff; --border:rgba(0,0,0,0.09);
+      --text:#1A1A1A; --muted:rgba(26,26,26,0.5); --heading:#0A0A0A;
+      --footer:rgba(0,0,0,0.22);
+      --toggle-bg:rgba(0,0,0,0.06); --toggle-border:rgba(0,0,0,0.1); --toggle-text:rgba(0,0,0,0.5);
+      --accent:#6E1D13;
+    }
+    body { background:var(--bg); color:var(--text); font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased; min-height:100vh; transition:background .4s,color .4s; }
+    .hero { position:relative; width:100%; height:clamp(280px,60vw,500px); overflow:hidden; }
+    .hero-img { width:100%; height:100%; object-fit:cover; display:block; }
+    .hero-grad { position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.8) 0%, rgba(0,0,0,.1) 55%, transparent 100%); }
+    .nav-btn { position:fixed; top:18px; display:flex; align-items:center; gap:6px; padding:7px 14px; border-radius:100px; background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.18); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); color:rgba(255,255,255,.8); font-family:inherit; font-size:11px; font-weight:600; letter-spacing:.04em; cursor:pointer; text-decoration:none; transition:color .2s; z-index:100; }
+    .nav-btn:hover { color:#fff; }
+    .nav-btn.left { left:18px; } .nav-btn.right { right:18px; }
+    .nav-btn svg { width:13px; height:13px; flex-shrink:0; stroke:currentColor; }
+    .hero-content { position:absolute; bottom:22px; left:20px; right:20px; }
+    .hero-tags { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px; }
+    .hero-tag { font-size:9.5px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); color:#fff; border-radius:100px; padding:4px 11px; backdrop-filter:blur(4px); }
+    .hero-name { font-size:clamp(26px,6vw,44px); font-weight:800; color:#fff; letter-spacing:-.025em; line-height:1.05; }
+    .hero-state { font-size:13px; color:rgba(255,255,255,.65); margin-top:4px; }
+    .stats { display:grid; grid-template-columns:1fr 1fr 1fr; background:var(--surface); border-bottom:1px solid var(--border); transition:background .4s; }
+    .stat { padding:18px 10px; text-align:center; border-right:1px solid var(--border); transition:border-color .4s; }
+    .stat:last-child { border-right:none; }
+    .stat-val { font-size:clamp(13px,2.6vw,19px); font-weight:800; color:var(--accent); letter-spacing:-.02em; line-height:1.1; transition:color .4s; }
+    .stat-lbl { font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-top:4px; transition:color .4s; }
+    .content { max-width:600px; margin:0 auto; padding:28px 20px 56px; }
+    .sec-title { font-size:10px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; transition:color .4s; }
+    .bullets { list-style:none; display:flex; flex-direction:column; gap:11px; margin-bottom:32px; }
+    .bullet { display:flex; align-items:flex-start; gap:12px; font-size:14px; line-height:1.6; color:var(--text); transition:color .4s; }
+    .bdot { width:6px; height:6px; border-radius:50%; background:var(--accent); flex-shrink:0; margin-top:8px; transition:background .4s; }
+    .gallery { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:32px; }
+    .gallery img { width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:12px; display:block; }
+    .gallery img.wide { grid-column:span 2; aspect-ratio:16/9; }
+    .criteria { margin-bottom:28px; }
+    .crit-row { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); font-size:13px; transition:border-color .4s; }
+    .crit-row:first-child { border-top:1px solid var(--border); }
+    .crit-check { color:var(--accent); font-weight:700; flex-shrink:0; width:18px; transition:color .4s; }
+    .crit-key { font-weight:600; width:90px; flex-shrink:0; color:var(--text); transition:color .4s; }
+    .crit-val { color:var(--muted); line-height:1.4; transition:color .4s; }
+    .risks { background:var(--surface); border:1px solid var(--border); border-left:3px solid #C4783A; border-radius:0 14px 14px 0; padding:16px 20px; margin-bottom:32px; transition:background .4s,border-color .4s; }
+    .risk-lbl { font-size:9.5px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:#C4783A; margin-bottom:8px; }
+    .risk-text { font-size:13px; line-height:1.6; color:var(--muted); transition:color .4s; }
+    .footer { text-align:center; font-size:10px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--footer); padding-bottom:16px; transition:color .4s; }
+  </style>
+</head>
+<body>
+  <a class="nav-btn left" href="#" onclick="history.length>1?history.back():location.href='entrepreneurship.html';return false;">← Back</a>
+  <button class="nav-btn right" id="themeBtn" onclick="toggleTheme()">
+    <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <span id="themeLabel">Light</span>
+  </button>
+
+  <div class="hero">
+    <img class="hero-img" src="/Users/giovanni.koubo/.claude/image-cache/c4e8b5d8-08a4-4627-b782-dc4382f67f33/29.png" alt="Belo Horizonte">
+    <div class="hero-grad"></div>
+    <div class="hero-content">
+      <div class="hero-tags"><span class="hero-tag">Entrepreneurship</span></div>
+      <h1 class="hero-name">Belo Horizonte</h1>
+      <p class="hero-state">Minas Gerais, Brazil · CNF Airport · ~35 min</p>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-val">R$9–18k</div><div class="stat-lbl">per m² (Savassi)</div></div>
+    <div class="stat"><div class="stat-val">+12%</div><div class="stat-lbl">appreciation / yr</div></div>
+    <div class="stat"><div class="stat-val">#1 LA</div><div class="stat-lbl">startup growth 2025</div></div>
+  </div>
+
+  <div class="content">
+    <p class="sec-title">Why Invest</p>
+    <ul class="bullets">
+      <li class="bullet"><span class="bdot"></span><span><strong>#1 in Latin America for startup ecosystem growth</strong> (Dealroom Rising Stars 2025) — #4 globally. +34.9% growth, $72M in tracked funding.</span></li>
+      <li class="bullet"><span class="bdot"></span><span><strong>Hotmart HQ</strong> (unicorn, operating in 180+ countries) based in BH. FIRE 2025 event injected R$70M into the city. Growing cluster: Solides, Blip.ai, Sympla.</span></li>
+      <li class="bullet"><span class="bdot"></span><span>CNF (Confins) has direct flights to <strong>Lisbon, Orlando, Santiago</strong> — 67 total destinations across 7 countries. Easy international reach.</span></li>
+      <li class="bullet"><span class="bdot"></span><span>Savassi: <strong>R$18,053/m2 avg (+13.2% YoY)</strong> — among Brazil's fastest appreciating premium neighborhoods. City avg +12% for 2 consecutive years.</span></li>
+      <li class="bullet"><span class="bdot"></span><span><strong>Food capital of Brazil</strong> — highest quality of life among major Brazilian cities. Cost of living ~13% below Brasília, far below São Paulo/Rio.</span></li>
+      <li class="bullet"><span class="bdot"></span><span>UFMG (Universidade Federal de MG) — strong research output feeding the tech ecosystem. Strong mining/energy investment network (Vale, Petrobras ecosystem).</span></li>
+    </ul>
+
+    <p class="sec-title">Gallery</p>
+    <div class="gallery">
+      <img src="/Users/giovanni.koubo/.claude/image-cache/c4e8b5d8-08a4-4627-b782-dc4382f67f33/27.png" alt="Savassi avenue">
+      <img src="/Users/giovanni.koubo/.claude/image-cache/c4e8b5d8-08a4-4627-b782-dc4382f67f33/35.png" alt="Parque Municipal">
+      <img class="wide" src="/Users/giovanni.koubo/.claude/image-cache/c4e8b5d8-08a4-4627-b782-dc4382f67f33/30.png" alt="BH city panorama at night">
+    </div>
+
+    <p class="sec-title">Criteria Met</p>
+    <div class="criteria">
+      <div class="crit-row"><span class="crit-check">✓</span><span class="crit-key">Airport</span><span class="crit-val">CNF (Confins) International · ~35 min · Lisbon, Orlando, Santiago direct</span></div>
+      <div class="crit-row"><span class="crit-check">✓</span><span class="crit-key">City</span><span class="crit-val">BH itself — 2.5M+ residents, full capital infrastructure</span></div>
+      <div class="crit-row"><span class="crit-check">✓</span><span class="crit-key">Safety</span><span class="crit-val">6th lowest homicide rate among Brazilian state capitals — best in peer group</span></div>
+      <div class="crit-row"><span class="crit-check">✓</span><span class="crit-key">Climate</span><span class="crit-val">Tropical highland · mild ~22°C avg · low humidity</span></div>
+      <div class="crit-row"><span class="crit-check">✓</span><span class="crit-key">Internet</span><span class="crit-val">222–500+ Mbps fiber · Vivo, TIM, Claro widely available</span></div>
+    </div>
+
+    <div class="risks">
+      <p class="risk-lbl">Risks to Consider</p>
+      <p class="risk-text">Numbeo crime index: 63/100 ("high") — risk is real but concentrated in peripheral areas. Premium neighborhoods (Savassi, Lourdes, Funcionários) are safe and well-policed. No beach access — purely entrepreneurship/lifestyle play. Airport is ~35–44km from center, which is farther than ideal.</p>
+    </div>
+
+    <p class="footer">OtherEarth Brazil · Investment Research 2025</p>
+  </div>
+
+  <script>
+    const SUN=`<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
+    const MOON=`<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`;
+    function applyTheme(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('themeIcon').innerHTML=t==='light'?MOON:SUN;document.getElementById('themeLabel').textContent=t==='light'?'Dark':'Light';}
+    function toggleTheme(){const n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';localStorage.setItem('oe-theme',n);applyTheme(n);}
+    const saved=localStorage.getItem('oe-theme');if(saved)applyTheme(saved);else applyTheme('dark');
+  </script>
+</body>
+</html>
